@@ -18,6 +18,11 @@
         </activity>
 
         <activity android:name=".MultipleChoiceTaskActivity" />
+        <activity android:name=".Quests" />
+        <activity android:name=".Tasks" />
+        <activity android:name=".PictureTaskActivity" />
     </application>
+
+    <uses-permission android:name="android.permission.INTERNET" />
 
 </manifest>

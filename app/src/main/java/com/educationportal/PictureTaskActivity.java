@@ -1,10 +1,5 @@
 package com.educationportal;
 
-import android.app.AlertDialog;
-import android.app.Dialog;
-import android.app.DialogFragment;
-import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -27,27 +22,24 @@ import java.util.Iterator;
 /**
  * Created by johnearle on 9/27/15.
  */
-public class MultipleChoiceTaskActivity extends AppCompatActivity {
-    final Context context = this;
+public class PictureTaskActivity extends AppCompatActivity {
     ListView l1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.quests);
-
-        LinearLayout myLayout = (LinearLayout)findViewById(R.id.taskLinear2);
+        setContentView(R.layout.picture_task_layout);
 
         Intent intent = getIntent();
 
-        String question = intent.getStringExtra("question");
+        String question = "What type of molecule is shown?";
 
         TextView t =new TextView(this);
 
         t=(TextView)findViewById(R.id.title);
         t.setText(question);
 
-        String[] options = intent.getStringArrayExtra("options");
+        String[] options = {"Hydrogen sulfide", "Water", "Phosphine", "Ferrous chloride"};
 
         l1=(ListView)findViewById(R.id.list);
         l1.setAdapter(new dataListAdapter(new ArrayList<String>(Arrays.asList(options))));
@@ -92,37 +84,10 @@ public class MultipleChoiceTaskActivity extends AppCompatActivity {
             row.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    System.out.println(POS);
-                    if (POS == 3) {
-                        AlertDialog.Builder builder = new AlertDialog.Builder(context);
-
-                        LayoutInflater inflater = getLayoutInflater();
-
-                        builder.setView(inflater.inflate(R.layout.correct_alert_layout, null));
-
-                        builder.setMessage("You have earned one new star!")
-                                .setTitle("Correct!");
-
-                        AlertDialog dialog = builder.create();
-                        dialog.show();
-                    } else {
-                        AlertDialog.Builder builder = new AlertDialog.Builder(context);
-
-                        LayoutInflater inflater = getLayoutInflater();
-
-                        builder.setView(inflater.inflate(R.layout.incorrect_alert_layout, null));
-
-                        builder.setMessage("So close! Try again.")
-                                .setTitle("Not quite!");
-
-                        AlertDialog dialog = builder.create();
-                        dialog.show();
-                    }
                 }
             });
 
             return (row);
         }
     }
-
 }
