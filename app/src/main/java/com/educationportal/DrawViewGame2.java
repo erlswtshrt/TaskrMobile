@@ -11,10 +11,10 @@ import android.view.SurfaceView;
 
 import java.util.ArrayList;
 
-/**
- * Created by muppala on 23/5/15.
- */
 public class DrawViewGame2 extends SurfaceView implements SurfaceHolder.Callback {
+
+    int nbColor = 5;
+    int nbForm = 3 ;
 
     public final static int REMEMBER_STATE = 0 ;
     public final static int SHOOT_STATE = 1 ; // 2 state
@@ -23,6 +23,7 @@ public class DrawViewGame2 extends SurfaceView implements SurfaceHolder.Callback
     int state ; // current state
     int tostate ;
     int level = 0 ;
+
     private int width, height;
     private DrawViewThread drawviewthread;
 
@@ -60,8 +61,11 @@ public class DrawViewGame2 extends SurfaceView implements SurfaceHolder.Callback
         //androidGuy = new AndroidGuy(Color.RED, mContext);
         enemy = new Enemy( mContext);
         enemy.beginEnemy(0);
+        enemy.setNb(nbColor , nbForm);
         int col[] = {Color.BLUE , Color.GREEN} ;
-        enemyLine = new EnemyLine(width , mContext , col) ;
+        enemyLine = new EnemyLine(width , mContext , nbColor , nbForm) ;
+
+        enemyLine.setForm();
         score = new Score(Color.BLACK);
         state = REMEMBER_STATE ;
         tostate = state ;
@@ -195,7 +199,7 @@ public class DrawViewGame2 extends SurfaceView implements SurfaceHolder.Callback
                         explosions.add(new Explosion(Color.RED, mContext, enemy.getX(), enemy.getY()));
                         if ( enemy.hitAndIfNext()) {
                             tostate = SHOOT_STATE ;
-                            enemyLine.setColorToShoot(enemy.getEnemyShot());
+                            enemyLine.setColorFormToShoot(enemy.getEnemyShotColor(), enemy.getEnemyShotForm() );
                         }
                         enemy.reset();
                         bullets.remove(i);
@@ -203,7 +207,7 @@ public class DrawViewGame2 extends SurfaceView implements SurfaceHolder.Callback
                         SoundEffects.INSTANCE.playSound(SoundEffects.SOUND_EXPLOSION);
 
 
-                       // score.incrementScore();
+                        // score.incrementScore();
                         break;
                     }
 
@@ -220,7 +224,7 @@ public class DrawViewGame2 extends SurfaceView implements SurfaceHolder.Callback
             if (enemyLine != null) {
                 enemyLine.draw(canvas);
                 Enemy line[] = enemyLine.getEnemyLine() ;
-                for (int n = 0; n < 5 ; n++) {
+                for (int n = 0; n < nbColor + 1 ; n++) {
                     Enemy androidGuy=line[n] ;
                     RectF guyRect = androidGuy.getRect();
 
@@ -232,21 +236,23 @@ public class DrawViewGame2 extends SurfaceView implements SurfaceHolder.Callback
                         if (RectF.intersects(guyRect, bullets.get(i).getRect())) {
                             explosions.add(new Explosion(Color.RED, mContext, androidGuy.getX(), androidGuy.getY()));
                             enemyLine.reset();
+
                             bullets.remove(i);
                             // Play the explosion sound by calling the SoundEffects class
                             SoundEffects.INSTANCE.playSound(SoundEffects.SOUND_EXPLOSION);
-                            int goodHit = enemyLine.gooodShot(androidGuy.getColor()) ;
-                            if ( goodHit != 0 ) {
+                            int goodHit = enemyLine.gooodShot(androidGuy) ;
+                            if ( goodHit != 0 && goodHit !=2 ) {
                                 score.addScore(goodHit);
                                 if (goodHit == 1 ) {
                                     level ++ ;
                                     enemy.beginEnemy(level);
-                                } else {
+                                } else if (goodHit == -1) {
                                     levelDecremente();
                                 }
 
                                 tostate = REMEMBER_STATE ;
                             }
+                            enemyLine.resetForm();
                             break;
                         }
 
