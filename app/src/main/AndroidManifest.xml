@@ -21,6 +21,9 @@
         <activity android:name=".Quests" />
         <activity android:name=".Tasks" />
         <activity android:name=".PictureTaskActivity" />
+        <activity android:name=".ShootingGame" />
+        <activity android:name=".ShootingGame2" />
+        <view android:name=".DrawView" />
     </application>
 
     <uses-permission android:name="android.permission.INTERNET" />

@@ -1,7 +1,5 @@
 package com.educationportal;
 
-import java.util.ArrayList;
-
 /**
  * Created by johnearle on 9/27/15.
  */

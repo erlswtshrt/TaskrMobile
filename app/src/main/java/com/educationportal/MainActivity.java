@@ -1,18 +1,14 @@
 package com.educationportal;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ListView;
 
 import com.firebase.client.Firebase;
-
-import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
     ListView l1;
@@ -32,5 +28,16 @@ public class MainActivity extends AppCompatActivity {
     public void openTasks(View view) {
         Intent intent = new Intent(this, Quests.class);
         startActivityForResult(intent, 1);
+    }
+
+    public void openGame(View view) {
+        Intent intent = new Intent(this, ShootingGame.class);
+        startActivityForResult(intent, 2);
+    }
+
+
+    public void openGame2(View view) {
+        Intent intent = new Intent(this, ShootingGame2.class);
+        startActivityForResult(intent, 3);
     }
 }
