@@ -3,6 +3,8 @@ package com.educationportal;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Paint;
+
 import java.util.Random;
 
 /**
@@ -77,9 +79,15 @@ public class EnemyLine {
     public Enemy[] getEnemyLine() {return enemyLine;}
 
     public void draw(Canvas canvas) {
-        for (int i = 0; i < nbColor + 1; i++) {
+        for (int i = 0; i < nbColor ; i++) {
             enemyLine[i].draw(canvas);
         }
+        Enemy next = enemyLine[nbColor] ;
+        Paint paint = new Paint();
+        paint.setColor(next.getColor());
+        paint.setStyle(Paint.Style.FILL);
+        paint.setTextSize(80);
+        canvas.drawText("->" , next.x-40 , next.y +25 , paint);
     }
 
     public void setColorFormToShoot(int[] colors , int[]forms) {

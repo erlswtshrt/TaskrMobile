@@ -110,7 +110,7 @@ public class Enemy {
         // Detect when the guy reaches the bottom of the screen
         // restart at location at the top of the screen
         if (y + 50 > upperY) {
-            SoundEffects.INSTANCE.playSound(SoundEffects.SOUND_GUY);
+          //  SoundEffects.INSTANCE.playSound(SoundEffects.SOUND_GUY);
             return false;
         }
         else
@@ -178,10 +178,14 @@ public class Enemy {
     }
 
     public void drawTriangle ( Canvas canvas ) {
-        float lines [] = { x - radius , y , x + radius , y ,
-                x - radius , y , x , y + 1.73205f * radius ,
-                x , y + 1.73205f * radius , x + radius/2 , y } ;
-        canvas.drawLines(lines , paint );
-        canvas.drawCircle(x + radius / 3 , y + radius / 3  , radius / 3 , paint);
+        for (int i = 0; i < radius; i++) {
+            float lines [] = { x - i , y , x + i , y ,
+                    x - i , y , x , y + 1.73205f * i ,
+                    x , y + 1.73205f * i , x + i , y } ;
+            canvas.drawLines(lines , paint );
+        }
+
+
+        
     }
 }
