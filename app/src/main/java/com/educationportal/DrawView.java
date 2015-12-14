@@ -308,7 +308,7 @@ public class DrawView extends SurfaceView implements SurfaceHolder.Callback {
         String answerTxt = "";
 
         for(int i = 0; i < 3; i++) {
-            answerTxt = answerTxt + colors[previousItems.get(i)];
+            answerTxt = answerTxt + colors[previousItems.get(i)] + " ";
         }
 
         btns[answer].setText(answerTxt);
