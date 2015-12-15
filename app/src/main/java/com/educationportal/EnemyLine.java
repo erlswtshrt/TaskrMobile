@@ -43,6 +43,10 @@ public class EnemyLine {
         }
     }
 
+    public void update(int c) {
+        nbColor = c;
+    }
+
     public boolean move() {
         boolean res = true ;
         for (int i = 0; i < nbColor + 1 ; i++) {

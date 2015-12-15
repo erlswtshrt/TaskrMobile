@@ -1,13 +1,18 @@
 package com.educationportal;
 
+import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.RectF;
 import android.util.AttributeSet;
+import android.view.LayoutInflater;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
+import android.view.View;
+import android.widget.Button;
 
 import java.util.ArrayList;
 
@@ -57,11 +62,67 @@ public class DrawViewGame2 extends SurfaceView implements SurfaceHolder.Callback
         bullets = new ArrayList<Bullet> ();
         explosions = new ArrayList<Explosion>();
 
+        ((Activity)getContext()).runOnUiThread(new Runnable() {
+            public void run() {
+                stopGame();
+                AlertDialog.Builder builder = new AlertDialog.Builder(mContext).setCancelable(false);
+
+                LayoutInflater inflater;
+
+                inflater = LayoutInflater.from(mContext);
+                builder.setView(inflater.inflate(R.layout.shooting_popup_layout, null));
+
+                final AlertDialog dialog = builder.create();
+
+                dialog.show();
+
+                dialog.setContentView(R.layout.color_parameter_popup);
+
+                // handle user options
+                Button option1 = (Button) dialog.findViewById(R.id.option1);
+                Button option2 = (Button) dialog.findViewById(R.id.option2);
+                Button option3 = (Button) dialog.findViewById(R.id.option3);
+
+                stopGame();
+
+                option1.setOnClickListener(new OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        nbColor = 3;
+                        enemy.setNb(nbColor , nbForm);
+                        enemyLine = new EnemyLine(width , mContext , nbColor , nbForm);
+                        enemyLine.setForm();
+                        dialog.dismiss();
+                    }
+                });
+
+                option2.setOnClickListener(new OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        nbColor = 4;
+                        enemy.setNb(nbColor , nbForm);
+                        dialog.dismiss();
+                    }
+                });
+
+                option3.setOnClickListener(new OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        nbColor = 5;
+                        enemy.setNb(nbColor , nbForm);
+                        dialog.dismiss();
+                    }
+                });
+
+            }
+
+        });
+
+
         // create the falling Android Guy
         //androidGuy = new AndroidGuy(Color.RED, mContext);
-        enemy = new Enemy( mContext);
+        enemy = new Enemy(mContext);
         enemy.beginEnemy(0);
-        enemy.setNb(nbColor , nbForm);
         int col[] = {Color.BLUE , Color.GREEN} ;
         enemyLine = new EnemyLine(width , mContext , nbColor , nbForm) ;
 

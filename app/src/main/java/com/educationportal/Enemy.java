@@ -1,5 +1,4 @@
 package com.educationportal;
-
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -73,6 +72,12 @@ public class Enemy {
         this.nbColor = nbColor ;
         this.nbForm = nbForm ;
         paint.setColor(colors[rd.nextInt(nbColor)]);
+        form = rd.nextInt(nbForm) ;
+    }
+
+    public void setNbLine ( int nbColor , int nbForm ) {
+        this.nbColor = nbColor ;
+        this.nbForm = nbForm ;
     }
     public void beginEnemy(int level ) {
         enemyShotColor = new int[level/NB_SUCCESS_BEFORE_ADD_BALL + 1] ;
@@ -97,6 +102,7 @@ public class Enemy {
         if (y + 50 > upperY) {
             x = (float) ((upperX-50)*Math.random());
             y = 0;
+            //   SoundEffects.INSTANCE.playSound(SoundEffects.SOUND_GUY);
             indexEnemyShot = 0 ;
             return false;
         }
@@ -110,7 +116,7 @@ public class Enemy {
         // Detect when the guy reaches the bottom of the screen
         // restart at location at the top of the screen
         if (y + 50 > upperY) {
-            SoundEffects.INSTANCE.playSound(SoundEffects.SOUND_GUY);
+///            SoundEffects.INSTANCE.playSound(SoundEffects.SOUND_GUY);
             return false;
         }
         else
@@ -122,7 +128,7 @@ public class Enemy {
     public void reset() {
         x = (float) ((upperX-50)*Math.random());
         y = 0;
-        paint.setColor(colors[rd.nextInt(nbForm)]);
+        paint.setColor(colors[rd.nextInt(nbColor)]);
     }
 
     public void resetY() {

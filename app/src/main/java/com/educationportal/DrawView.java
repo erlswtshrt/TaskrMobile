@@ -25,6 +25,8 @@ public class DrawView extends SurfaceView implements SurfaceHolder.Callback {
 
     private int type;
 
+    private int speed = 20;
+
     private int numOfModes = 2;
 
     private String[] colors = {"red", "blue", "yellow", "green"};
@@ -70,6 +72,58 @@ public class DrawView extends SurfaceView implements SurfaceHolder.Callback {
         previousItems.add(type);
 
         score = new Score(Color.BLACK);
+
+
+        ((Activity)getContext()).runOnUiThread(new Runnable() {
+            public void run() {
+                stopGame();
+                AlertDialog.Builder builder = new AlertDialog.Builder(mContext).setCancelable(false);
+
+                LayoutInflater inflater;
+
+                inflater = LayoutInflater.from(mContext);
+                builder.setView(inflater.inflate(R.layout.shooting_popup_layout, null));
+
+                final AlertDialog dialog = builder.create();
+
+                dialog.show();
+
+                dialog.setContentView(R.layout.parameter_popup);
+
+                // handle user options
+                Button option1 = (Button) dialog.findViewById(R.id.option1);
+                Button option2 = (Button) dialog.findViewById(R.id.option2);
+                Button option3 = (Button) dialog.findViewById(R.id.option3);
+
+                stopGame();
+
+                option1.setOnClickListener(new OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        speed = 60;
+                        dialog.dismiss();
+                    }
+                });
+
+                option2.setOnClickListener(new OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        speed = 20;
+                        dialog.dismiss();
+                    }
+                });
+
+                option3.setOnClickListener(new OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        speed = 5;
+                        dialog.dismiss();
+                    }
+                });
+
+            }
+
+        });
 
     }
 
@@ -134,7 +188,7 @@ public class DrawView extends SurfaceView implements SurfaceHolder.Callback {
                         synchronized(surfaceHolder){
                             drawGameBoard(canvas);
                         }
-                        sleep(20);
+                        sleep(speed);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
@@ -308,7 +362,7 @@ public class DrawView extends SurfaceView implements SurfaceHolder.Callback {
         String answerTxt = "";
 
         for(int i = 0; i < 3; i++) {
-            answerTxt = answerTxt + colors[previousItems.get(i)];
+            answerTxt = answerTxt + colors[previousItems.get(i)] + " ";
         }
 
         btns[answer].setText(answerTxt);
