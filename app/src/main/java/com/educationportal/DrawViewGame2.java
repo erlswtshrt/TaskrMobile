@@ -90,9 +90,15 @@ public class DrawViewGame2 extends SurfaceView implements SurfaceHolder.Callback
                     public void onClick(View view) {
                         nbColor = 3 ;
                         nbForm = 1 ;
-                        enemy.setNb(nbColor , nbForm);
+                        level = 0 ;
+
+                        enemy.setNb(nbColor, nbForm);
                         enemy.beginEnemy(0);
+                        enemy.beginEnemy(level ) ;
+                        enemy.reset();
+
                         enemyLine.setNb(nbColor , nbForm);
+
                         //enemyLine = new EnemyLine(width , mContext , nbColor , nbForm);
                         dialog.dismiss();
                     }
@@ -103,9 +109,12 @@ public class DrawViewGame2 extends SurfaceView implements SurfaceHolder.Callback
                     public void onClick(View view) {
                         nbColor = 4;
                         nbForm = 2 ;
+                        level = 2 ;
                         enemy.setNb(nbColor , nbForm);
                         enemy.beginEnemy(0);
                         enemyLine.setNb(nbColor , nbForm);
+                        enemy.beginEnemy(level ) ;
+                        enemy.reset();
                       //  enemyLine = new EnemyLine(width , mContext , nbColor , nbForm);
                         dialog.dismiss();
                     }
@@ -116,8 +125,11 @@ public class DrawViewGame2 extends SurfaceView implements SurfaceHolder.Callback
                     public void onClick(View view) {
                         nbColor = 5;
                         nbForm = 3 ;
+                        level = 4 ;
                         enemy.setNb(nbColor , nbForm);
                         enemy.beginEnemy(0);
+                        enemy.beginEnemy(level ) ;
+                        enemy.reset();
                         enemyLine.setNb(nbColor , nbForm);
                         //enemyLine = new EnemyLine(width , mContext , nbColor , nbForm);
                         dialog.dismiss();
@@ -269,6 +281,7 @@ public class DrawViewGame2 extends SurfaceView implements SurfaceHolder.Callback
                         explosions.add(new Explosion(Color.RED, mContext, enemy.getX(), enemy.getY()));
                         if ( enemy.hitAndIfNext()) {
                             tostate = SHOOT_STATE ;
+                            enemyLine.resetX();
                             enemyLine.setColorFormToShoot(enemy.getEnemyShotColor(), enemy.getEnemyShotForm() );
                         }
                         enemy.reset();

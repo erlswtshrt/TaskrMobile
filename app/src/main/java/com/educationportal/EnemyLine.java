@@ -15,6 +15,7 @@ public class EnemyLine {
     Enemy enemyLine[] ;
     int nbColor = 5 ;
     int nbForm = 3 ;
+    int tenthWidth ;
 
     Random rd = new Random() ;
 
@@ -25,11 +26,11 @@ public class EnemyLine {
         this.nbColor = nbColor ;
         this.nbForm = nbForm ;
         enemyLine = new Enemy[nbColor+1] ;
-        int tenthWidth = width / 10 ;
+         tenthWidth = width / 10 ;
         for (int i = 1; i < nbColor+1; i++) {
-            enemyLine[i] = new Enemy(colors[i] , mcontext , (1 + 2*i)*5 , 30);
+            enemyLine[i] = new Enemy(colors[i] , mcontext , (1 + 2*i)*tenthWidth , 30);
         }
-        enemyLine[0] = new Enemy(Color.BLACK , mcontext , (1 + 2*nbColor)*5 , 30);
+        enemyLine[0] = new Enemy(Color.BLACK , mcontext , tenthWidth , 30);
         indexToShoot = 0 ;
     }
 
@@ -77,6 +78,12 @@ public class EnemyLine {
     public void resetForm () {
         for (int i = 0; i < nbColor + 1; i++) {
             enemyLine[i].form = (enemyLine[i].form + 1) %nbForm ;
+        }
+    }
+
+    public void resetX () {
+        for (int i = 0; i < nbColor + 1; i++) {
+            enemyLine[i].x = (1 + 2*i)*50 ;
         }
     }
 

@@ -18,7 +18,7 @@ public class Enemy {
 
     private final int FIRST_STEPY_VALUE = 5 ;
     private final int NB_SUCCESS_BEFORE_ADD_BALL = 1 ;
-    private final int NB_SUCCESS_BEFORE_ACCELERATION = 2 ;
+    private final int NB_SUCCESS_BEFORE_ACCELERATION = 1 ;
 
     private final int TRIANGLE_FORM = 0 ;
     private final int RECTANGLE_FORM = 1 ;
@@ -76,10 +76,7 @@ public class Enemy {
         form = rd.nextInt(nbForm) ;
     }
 
-    public void setNbLine ( int nbColor , int nbForm ) {
-        this.nbColor = nbColor ;
-        this.nbForm = nbForm ;
-    }
+
     public void beginEnemy(int level ) {
         enemyShotColor = new int[level/NB_SUCCESS_BEFORE_ADD_BALL + 1] ;
         enemyShotForm = new int[level/NB_SUCCESS_BEFORE_ADD_BALL + 1] ;
@@ -152,7 +149,6 @@ public class Enemy {
 
     public int getForm() { return form;}
 
-    public void resetForm() { form = (form + 1) %nbForm ;}
     public void setForm() { form = 0 ;}
 
     public int[] getEnemyShotForm() { return enemyShotForm ;}
