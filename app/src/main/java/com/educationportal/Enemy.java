@@ -50,6 +50,7 @@ public class Enemy {
 
         mContext = c;
         paint = new Paint();
+        paint.setColor(colors[rd.nextInt(nbColor)]);
 
     }
     public Enemy(int color, Context c) {

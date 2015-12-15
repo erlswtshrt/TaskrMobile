@@ -11,7 +11,7 @@ import java.util.Random;
  * Created by Devaux on 18/11/15.
  */
 public class EnemyLine {
-    private final int colors[] = {Color.BLUE , Color.RED , Color.YELLOW , Color.GREEN , Color.GRAY ,Color.BLACK} ;
+    private final int colors[] = {Color.BLACK , Color.BLUE , Color.RED , Color.YELLOW , Color.GREEN , Color.GRAY } ;
     Enemy enemyLine[] ;
     int nbColor = 5 ;
     int nbForm = 3 ;
@@ -26,10 +26,10 @@ public class EnemyLine {
         this.nbForm = nbForm ;
         enemyLine = new Enemy[nbColor+1] ;
         int tenthWidth = width / 10 ;
-        for (int i = 0; i < nbColor; i++) {
+        for (int i = 1; i < nbColor+1; i++) {
             enemyLine[i] = new Enemy(colors[i] , mcontext , (1 + 2*i)*5 , 30);
         }
-        enemyLine[nbColor] = new Enemy(Color.BLACK , mcontext , (1 + 2*nbColor)*5 , 30);
+        enemyLine[0] = new Enemy(Color.BLACK , mcontext , (1 + 2*nbColor)*5 , 30);
         indexToShoot = 0 ;
     }
 
@@ -76,17 +76,17 @@ public class EnemyLine {
 
     public void resetForm () {
         for (int i = 0; i < nbColor + 1; i++) {
-            enemyLine[i].resetForm();
+            enemyLine[i].form = (enemyLine[i].form + 1) %nbForm ;
         }
     }
 
     public Enemy[] getEnemyLine() {return enemyLine;}
 
     public void draw(Canvas canvas) {
-        for (int i = 0; i < nbColor ; i++) {
+        for (int i = 1; i < nbColor + 1 ; i++) {
             enemyLine[i].draw(canvas);
         }
-        Enemy next = enemyLine[nbColor] ;
+        Enemy next = enemyLine[0] ;
         Paint paint = new Paint();
         paint.setColor(next.getColor());
         paint.setStyle(Paint.Style.FILL);
@@ -124,5 +124,8 @@ public class EnemyLine {
             return -1 ;
         }
     }
-
+    public void setNb ( int nbColor , int nbForm ) {
+        this.nbColor = nbColor ;
+        this.nbForm = nbForm ;
+    }
 }
